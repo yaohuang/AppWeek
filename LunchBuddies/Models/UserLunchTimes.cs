@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace LunchBuddies.Models
 {
-    class UserLunchTimes
+    public class UserLunchTimes
     {
         public long Id { get; set; }
         [Required]

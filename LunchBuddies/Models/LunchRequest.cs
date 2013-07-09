@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace LunchBuddies.Models
 {
-    class LunchRequest
+    public class LunchRequest
     {
         public long Id { get; set; }
         [Required]

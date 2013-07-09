@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace LunchBuddies.Models 
+namespace LunchBuddies.Models
 {
     public class ExternalLoginConfirmationViewModel
     {

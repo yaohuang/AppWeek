@@ -1,9 +1,8 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace LunchBuddies.Models
 {
-    class UserLunchRequest
+    public class UserLunchRequest
     {
         [Required]
         public LunchRequest LunchRequest { get; set; }

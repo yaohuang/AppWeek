@@ -1,6 +1,6 @@
 ﻿namespace LunchBuddies.Models
 {
-    enum LunchStatus
+    public enum LunchStatus
     {
         Unanswered,
         Accepted,

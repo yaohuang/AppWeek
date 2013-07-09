@@ -2,7 +2,7 @@
 
 namespace LunchBuddies.Models
 {
-    class Interest
+    public class Interest
     {
         public long Id { get; set; }
         [Required]
