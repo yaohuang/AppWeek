@@ -167,6 +167,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Interest.cs" />
+    <Compile Include="Models\LunchRequest.cs" />
+    <Compile Include="Models\LunchStatus.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserLunchRequest.cs" />
+    <Compile Include="Models\UserLunchTimes.cs" />
+    <Compile Include="Models\UserPictures.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

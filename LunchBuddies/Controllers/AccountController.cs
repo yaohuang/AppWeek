@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Data.Entity.Validation;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
+using LunchBuddies.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
-using LunchBuddies.Models;
+using EFUser = Microsoft.AspNet.Identity.EntityFramework.User;
 
 namespace LunchBuddies.Controllers
 {
@@ -81,7 +79,7 @@ namespace LunchBuddies.Controllers
                 try
                 {
                     // Create a profile, password, and link the local login before signing in the user
-                    User user = new User(model.UserName);
+                    EFUser user = new EFUser(model.UserName);
                     if (await IdentityStore.CreateLocalUser(user, model.Password))
                     {
                         await AuthenticationManager.SignIn(HttpContext, user.Id, isPersistent: false);
@@ -255,7 +253,7 @@ namespace LunchBuddies.Controllers
                 // Get the information about the user from the external login provider
                 try
                 {
-                    if (await AuthenticationManager.CreateAndSignInExternalUser(HttpContext, model.LoginProvider, new User(model.UserName)))
+                    if (await AuthenticationManager.CreateAndSignInExternalUser(HttpContext, model.LoginProvider, new EFUser(model.UserName)))
                     {
                         return RedirectToLocal(returnUrl);
                     }
