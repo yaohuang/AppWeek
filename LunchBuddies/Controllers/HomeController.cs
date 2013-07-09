@@ -10,6 +10,7 @@ namespace LunchBuddies.Controllers
     {
         public ActionResult Index()
         {
+            //System.Net.Http.HttpResponseMessage response = EmailClient.SendEmailAsync().Result;
             return View();
         }
 
