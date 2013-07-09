@@ -6,12 +6,18 @@ namespace LunchBuddies.Models
     {
         [Key]
         public string Email { get; set; }
+
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
-        public string Name { get; set; }
-        public string Building { get; set; }
-        public string Office { get; set; }
 
+        [Required]
+        public string Name { get; set; }
+
+        [Required]
+        public string Building { get; set; }
+
+        [Required]
+        public string Office { get; set; }
     }
 }
