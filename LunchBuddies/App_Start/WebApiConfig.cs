@@ -13,6 +13,11 @@ namespace LunchBuddies
         public static void Register(HttpConfiguration config)
         {
             config.Routes.MapODataRoute("odata", "odata", GetEdmModel());
+            config.Routes.MapHttpRoute(
+                name: "DefaultApi",
+                routeTemplate: "api/{controller}/{action}/{id}",
+                defaults: new { id = RouteParameter.Optional }
+            );
         }
 
         private static IEdmModel GetEdmModel()

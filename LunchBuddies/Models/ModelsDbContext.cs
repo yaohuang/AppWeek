@@ -16,6 +16,8 @@ namespace LunchBuddies.Models
         public DbSet<UserPictures> UserPictures { get; set; }
         public DbSet<UserLunchRequest> UserLunchRequests { get; set; }
 
+        public DbSet<PendingRegistration> PendingRegistrations { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
