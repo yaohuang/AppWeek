@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace LunchBuddies.Models
 {
@@ -19,5 +20,7 @@ namespace LunchBuddies.Models
 
         [Required]
         public string Office { get; set; }
+
+        public ICollection<UserLunchRequest> LunchRequests { get; set; }
     }
 }

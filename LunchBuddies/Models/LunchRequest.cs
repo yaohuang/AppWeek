@@ -7,7 +7,7 @@ namespace LunchBuddies.Models
     public class LunchRequest
     {
         [Key]
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         [Required]
         public string MeetingPlace { get; set; }
