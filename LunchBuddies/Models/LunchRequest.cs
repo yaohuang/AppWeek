@@ -19,9 +19,9 @@ namespace LunchBuddies.Models
 
         public DateTime DateTimeRequest { get; set; }
 
-        public IList<UserLunchRequest> Users { get; set; }
+        public ICollection<UserLunchRequest> Users { get; set; }
 
-        public IList<Interest> Interests { get; set; }
+        public ICollection<Interest> Interests { get; set; }
 
         public string Subject { get; set; }
     }
