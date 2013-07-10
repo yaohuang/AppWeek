@@ -6,6 +6,7 @@ namespace LunchBuddies
     {
         public void Configuration(IAppBuilder app) 
         {
+            ConfigureEntityFramework(app);
             ConfigureAuth(app);
         }
     }

@@ -86,6 +86,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http.Formatting, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -158,6 +159,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.EntityFramework.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -170,6 +172,8 @@
     <Compile Include="Models\Interest.cs" />
     <Compile Include="Models\LunchRequest.cs" />
     <Compile Include="Models\LunchStatus.cs" />
+    <Compile Include="Models\ModelsDbConfiguration.cs" />
+    <Compile Include="Models\ModelsDbContext.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserLunchRequest.cs" />
     <Compile Include="Models\UserLunchTimes.cs" />
@@ -279,7 +283,9 @@
     <Content Include="Scripts\typings\jquery\jquery.d.ts" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Templates\Index.html" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
