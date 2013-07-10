@@ -64,8 +64,8 @@ namespace LunchBuddies.Migrations
                     {
                         Id = c.Long(nullable: false, identity: true),
                         DayOfWeek = c.Int(nullable: false),
-                        BeginTime = c.Time(nullable: false),
-                        EndTime = c.Time(nullable: false),
+                        BeginTime = c.DateTime(nullable: false, storeType: "datetime2"),
+                        EndTime = c.DateTime(nullable: false, storeType: "datetime2"),
                         User_Email = c.String(nullable: false, maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)

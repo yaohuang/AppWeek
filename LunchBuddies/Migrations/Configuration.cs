@@ -9,7 +9,7 @@ namespace LunchBuddies.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(LunchBuddies.Models.ModelsDbContext context)
