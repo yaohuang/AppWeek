@@ -21,10 +21,6 @@ namespace LunchBuddies.Models
             base.OnModelCreating(modelBuilder);
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
 
-            // configure UserLunchRequest to have a complex key consisting of LunchRequestId and UserId
-            modelBuilder.Entities<UserLunchRequest>().Configure(c => c
-                .HasKey(e => new { e.LunchRequestId, e.UserEmail }));
-            
             // set the default storage type of all DateTime columns to datetime2
             modelBuilder.Properties<DateTime>().Configure(p => p
                 .HasColumnType("datetime2"));

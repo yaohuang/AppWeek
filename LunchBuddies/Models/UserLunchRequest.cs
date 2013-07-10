@@ -5,12 +5,12 @@ namespace LunchBuddies.Models
 {
     public class UserLunchRequest
     {
-        // complex key {LunchRequestId, UserId}
-        public int LunchRequestId { get; set; }
-        
-        public string UserEmail { get; set; }
+        public int Id { get; set; }
 
-        [Required]
+        public virtual User User { get; set; }
+
+        public virtual LunchRequest LunchRequest { get; set; }
+
         public LunchStatus LunchStatus { get; set; }
     }
 }

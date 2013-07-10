@@ -1,7 +1,10 @@
-﻿using System;
+﻿using LunchBuddies.Models;
+using Microsoft.Data.Edm;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.OData.Builder;
 
 namespace LunchBuddies
 {
@@ -9,11 +12,16 @@ namespace LunchBuddies
     {
         public static void Register(HttpConfiguration config)
         {
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
+            config.Routes.MapODataRoute("odata", "odata", GetEdmModel());
+        }
+
+        private static IEdmModel GetEdmModel()
+        {
+            ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
+            builder.EntitySet<User>("Users");
+            builder.EntitySet<LunchRequest>("LunchRequests");
+            builder.EntitySet<UserLunchRequest>("UserLunchRequests");
+            return builder.GetEdmModel();
         }
     }
 }
