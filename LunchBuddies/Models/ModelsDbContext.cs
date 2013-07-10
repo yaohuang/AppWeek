@@ -28,7 +28,8 @@ namespace LunchBuddies.Models
             // set the default storage type of all DateTime columns to datetime2
             modelBuilder.Properties<DateTime>().Configure(p => p
                 .HasColumnType("datetime2"));
-            
+
+            Database.SetInitializer(new System.Data.Entity.MigrateDatabaseToLatestVersion<ModelsDbContext, Migrations.Configuration>());
         }
     }
 }
