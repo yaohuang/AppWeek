@@ -1,4 +1,5 @@
 using System;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -13,7 +14,8 @@ namespace LunchBuddies.Controllers
     {
         EmailAlreadyExists = 1,
         InvalidEmailAddress = 2,
-        ConfirmationTokenSent = 3
+        ConfirmationTokenSent = 3,
+        FailedToSendEmail = 4
     }
 
     public class EmailValidationResult
@@ -73,6 +75,7 @@ namespace LunchBuddies.Controllers
             }
 
             Guid guid = Guid.NewGuid();
+            string pictureUrl = Url.Link("DefaultApi", new { controller = "ProfilePicture", action = "GetPicture", alias = user.Alias });
             var newUser = new User
             {
                 Name = user.Name,
@@ -82,6 +85,7 @@ namespace LunchBuddies.Controllers
                 Department = user.Department,
                 Telephone = user.Telephone,
                 Title = user.Title,
+                PictureUrl = pictureUrl,
                 Password = "temp"
             };
             context.PendingRegistrations.Add(new PendingRegistration
@@ -89,11 +93,24 @@ namespace LunchBuddies.Controllers
                 User = newUser,
                 Id = guid
             });
-            context.SaveChanges();
 
             // Send email
-            string link = Url.Link("DefaultApi", new { controller = "Users", action = "RegistrationConfirmation", token = guid });
-            HttpResponseMessage response = await EmailClient.SendEmailAsync(email, "Please confirm your account registration by clicking on the link below: \r\n" + link);
+            string link = Url.Link("DefaultApi", new { controller = "Account", action = "RegistrationConfirmation", token = guid });
+            HttpResponseMessage response = await EmailClient.SendEmailAsync(email, 
+                String.Format(
+                    "Please complete your account registration by clicking the link below:<br/><a href='{0}'>Complete Registration</a>", 
+                    link));
+
+            if(!response.IsSuccessStatusCode)
+            {
+                return Content<EmailValidationResult>(HttpStatusCode.OK, new EmailValidationResult
+                {
+                    Result = CheckEmailResult.FailedToSendEmail,
+                    Message = "Oops, we cannot send the confirmation email at the moment. Please try again later."
+                });
+            }
+
+            context.SaveChanges();
 
             return Content<EmailValidationResult>(HttpStatusCode.OK, new EmailValidationResult
             {
@@ -102,12 +119,14 @@ namespace LunchBuddies.Controllers
             });
         }
         
+        [HttpGet]
         public Task<IHttpActionResult> ResendConfirmation(string email)
         {
             var pendingRegistration = context.PendingRegistrations.FirstOrDefault(reg => String.Equals(reg.User.Email, email));
             if (pendingRegistration != null)
             {
                 context.PendingRegistrations.Remove(pendingRegistration);
+                context.SaveChanges();
                 return Register(email);
             }
 
@@ -120,7 +139,8 @@ namespace LunchBuddies.Controllers
             Guid tokenId = Guid.Parse(token);
             using (ModelsDbContext context = new ModelsDbContext())
             {
-                PendingRegistration pendingRegistration = context.PendingRegistrations.FirstOrDefault(reg => reg.Id == tokenId);
+                ((IObjectContextAdapter)context).ObjectContext.ContextOptions.ProxyCreationEnabled = false;
+                PendingRegistration pendingRegistration = context.PendingRegistrations.Include("User").FirstOrDefault(reg => reg.Id == tokenId);
                 if (pendingRegistration == null)
                 {
                     return StatusCode(HttpStatusCode.BadRequest);
