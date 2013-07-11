@@ -5,7 +5,7 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace LunchBuddies.Models
 {
-    [DbConfigurationType(typeof(ModelsDbConfiguration))]
+    //[DbConfigurationType(typeof(ModelsDbConfiguration))]
     public class ModelsDbContext : DbContext
     {
         public DbSet<Interest> Interests { get; set; }
@@ -28,6 +28,11 @@ namespace LunchBuddies.Models
                 .HasColumnType("datetime2"));
 
             Database.SetInitializer(new System.Data.Entity.MigrateDatabaseToLatestVersion<ModelsDbContext, Migrations.Configuration>());
+        }
+
+        public ModelsDbContext() : base("DefaultConnection")
+        {
+
         }
     }
 }
