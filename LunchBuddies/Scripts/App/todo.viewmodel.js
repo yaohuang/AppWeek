@@ -51,7 +51,7 @@
                 app.navigateToLogin();
             else {
                 self.loading(false);
-                app.error("Error retrieving todo lists.");
+                app.errors.push("Error retrieving todo lists.");
             }
         }); // load todoLists
 }

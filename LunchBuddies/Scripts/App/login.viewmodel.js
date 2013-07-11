@@ -24,8 +24,7 @@
     self.errors = ko.observableArray();
 
     // data-bind visible
-    self.loggingInVisible = ko.observable(false);
-    self.unknownErrorVisible = ko.observable(false);
+    self.loadingExternalLogin = ko.observable(true);
     self.externalLoginVisible = ko.computed(function () {
         return self.externalLoginProviders().length > 0;
     });
@@ -35,7 +34,6 @@
 
     // data-bind click
     self.loginClick = function () {
-        self.unknownErrorVisible(false);
         self.errors.removeAll();
         validationTriggered(true);
         if (self.userName.hasError() || self.password.hasError())
@@ -43,20 +41,21 @@
         self.loggingIn(true);
 
         dataModel.login({
-            userName: self.userName(),
-            password: self.password(),
-            rememberMe: self.rememberMe()
+            grant_type: "password",
+            username: self.userName(),
+            password: self.password()
         }).done(function (data) {
             self.loggingIn(false);
-            if (data.errors)
-                self.errors(data.errors);
-            else if (data.userName && data.accessToken)
-                app.navigateToLoggedIn(data.userName, data.accessToken, self.rememberMe());
+            if (data.userName && data.access_token)
+                app.navigateToLoggedIn(data.userName, data.access_token, self.rememberMe());
             else
-                self.unknownErrorVisible(true);
-        }).fail(function () {
+                self.errors.push("An unknown error occurred.");
+        }).failJSON(function (data) {
             self.loggingIn(false);
-            self.unknownErrorVisible(true);
+            if (data && data.error_description)
+                self.errors.push(data.error_description);
+            else
+                self.errors.push("An unknown error occurred.");
         });
     };
 
@@ -64,14 +63,21 @@
         app.navigateToRegister();
     };
 
-    // initialization: inlineData is defined inline in Index.cshtml
-    var externalLoginProviders = inlineData.externalLoginProviders;
-    for (var i = 0; i < externalLoginProviders.length; i++) {
-        self.externalLoginProviders.push(new ExternalLoginProviderModel(externalLoginProviders[i]));
-    }
+    dataModel.getExternalLogins(dataModel.returnUrl, true /* generateState */)
+        .done(function (data) {
+            self.loadingExternalLogin(false);
+            if (typeof (data) === "object")
+                for (var i = 0; i < data.length; i++)
+                    self.externalLoginProviders.push(new ExternalLoginProviderViewModel(app, data[i]));
+            else
+                self.errors.push("An unknown error occurred.");
+        }).fail(function () {
+            self.loadingExternalLogin(false);
+            self.errors.push("An unknown error occurred.");
+        });
 }
 
-function ExternalLoginProviderModel(data) {
+function ExternalLoginProviderViewModel(app, data) {
     var self = this;
 
     // data-bind text
@@ -79,6 +85,10 @@ function ExternalLoginProviderModel(data) {
 
     // data-bind click
     self.loginClick = function () {
+        sessionStorage["state"] = data.state;
+        // IE doesn't reliably persist sessionStorage when navigating to another URL. Move sessionStorage temporarily
+        // to localStorage to work around this problem.
+        app.archiveSessionStorageToLocalStorage();
         window.location = data.url;
     };
 }

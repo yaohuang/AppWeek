@@ -1,16 +1,12 @@
-﻿@model LunchBuddies.Models.IndexModel
-@using Newtonsoft.Json
-@using Newtonsoft.Json.Serialization
-@{
+﻿@{
     ViewBag.Title = "Lunch Buddies";
-    ViewData.Add("CustomBody", true);
 }
 
 <div data-bind="with: loading">Loading...</div>
 <div style="display: none" data-bind="visible: true">
     <div id="userSettings" data-bind="with: user">
-        Hello, @Html.ActionLink("username", "Manage", "Account", routeValues: new { area = "" }, htmlAttributes: new { @class = "username", title = "Manage", data_bind = "text: name" })
-        <a href="#" data-bind="click: logoff">Log off</a>
+        Hello, <a href="#" data-bind="text: name, click: manage"></a>
+        &nbsp;<a href="#" data-bind="click: logOff">Log off</a>
     </div>
 
     <div id="body">
@@ -19,7 +15,9 @@
         </header>
 
         <div id="main-content">
-            <p class="error" data-bind="visible: error, text: error"></p>
+            <div data-bind="foreach: errors">
+                <p class="error" data-bind="text: $data"></p>
+            </div>
             <!-- ko with: todo -->
             @Html.Partial("_Todo")
             <!-- /ko -->
@@ -32,19 +30,16 @@
             <!-- ko with: registerExternal -->
             @Html.Partial("_RegisterExternal")
             <!-- /ko -->
+            <!-- ko with: manage -->
+            @Html.Partial("_Manage")
+            <!-- /ko -->
         </div>
     </div>
 </div>
 
 @section Scripts {
+    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/knockout")
     @Scripts.Render("~/bundles/jqueryval")
-    <script type="text/javascript">
-        var inlineData = @Html.Raw(JsonConvert.SerializeObject(Model, new JsonSerializerSettings
-        {
-            ContractResolver = new CamelCasePropertyNamesContractResolver(),
-            DefaultValueHandling = DefaultValueHandling.Ignore
-        }));
-    </script>
     @Scripts.Render("~/bundles/todo")
 }

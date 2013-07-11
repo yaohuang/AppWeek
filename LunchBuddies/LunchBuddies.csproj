@@ -134,6 +134,9 @@
     <Reference Include="System.Web.Http.OData">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.OData.5.0.0-beta2\lib\net45\System.Web.Http.OData.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.Http.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Owin.5.0.0-beta2\lib\net45\System.Web.Http.Owin.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Http.WebHost, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.0.0-beta2\lib\net45\System.Web.Http.WebHost.dll</HintPath>
@@ -200,10 +203,18 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ProfilePictureController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
-    <Compile Include="Models\ExternalLogin.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\IndexModel.cs" />
     <Compile Include="Hubs\LunchHub.cs" />
+    <Compile Include="Models\AccountBindingModels.cs" />
+    <Compile Include="Models\OAuthBindingModels.cs" />
+    <Compile Include="Models\TodoDataModels.cs" />
+    <Compile Include="Models\TodoDbContext.cs" />
+    <Compile Include="Models\TodoViewModels.cs" />
+    <Compile Include="Results\ChallengeResult.cs" />
+    <Compile Include="Results\FormUrlEncodedStringBuilder.cs" />
+    <Compile Include="Results\OAuthAccessTokenBadRequestResult.cs" />
+    <Compile Include="Results\OAuthAccessTokenResult.cs" />
+    <Compile Include="Results\OAuthImplicitAccessTokenErrorResult.cs" />
+    <Compile Include="Results\OAuthImplicitAccessTokenResult.cs" />
     <Compile Include="Utils\EmailClient.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -346,13 +357,6 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\LunchHub.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\typings\angularjs\angular-cookies.d.ts" />
-    <Content Include="Scripts\typings\angularjs\angular-mocks.d.ts" />
-    <Content Include="Scripts\typings\angularjs\angular-resource.d.ts" />
-    <Content Include="Scripts\typings\angularjs\angular-sanitize.d.ts" />
-    <Content Include="Scripts\typings\angularjs\angular-scenario.d.ts" />
-    <Content Include="Scripts\typings\angularjs\angular.d.ts" />
-    <Content Include="Scripts\typings\jquery\jquery.d.ts" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Templates\Index.html" />
     <Content Include="Web.config">

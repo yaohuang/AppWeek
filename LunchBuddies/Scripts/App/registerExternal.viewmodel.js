@@ -2,39 +2,36 @@
     var self = this;
 
     // data-bind text
-    self.state = ko.observable();
+    self.externalAccessToken = ko.observable(null);
     self.loginProvider = ko.observable();
 
     // data-bind value
-    self.userName = ko.observable();
+    self.userName = ko.observable(null);
     self.errors = ko.observableArray();
-
-    // data-bind visible
-    self.registeringVisible = ko.observable(false);
-    self.unknownErrorVisible = ko.observable(false);
 
     // data-bind enable
     self.registering = ko.observable(false);
 
     // data-bind click
     self.registerClick = function () {
-        self.unknownErrorVisible(false);
         self.errors.removeAll();
         self.registering(true);
         dataModel.registerExternal({
             userName: self.userName(),
-            state: self.state()
+            externalAccessToken: self.externalAccessToken()
         }).done(function (data) {
             self.registering(false);
-            if (data.errors)
-                self.errors(data.errors);
-            else if (data.userName && data.accessToken)
-                app.navigateToLoggedIn(data.userName, data.accessToken, false);
+            if (data.userName && data.access_token)
+                app.navigateToLoggedIn(data.userName, data.access_token, false);
             else
-                self.unknownErrorVisible(true);
-        }).fail(function () {
+                self.errors.push("An unknown error occurred.");
+        }).failJSON(function (data) {
             self.registering(false);
-            self.unknownErrorVisible(true);
+            var errors = dataModel.toErrorsArray(data);
+            if (errors)
+                self.errors(errors);
+            else
+                self.errors.push("An unknown error occurred.");
         });
     };
 }

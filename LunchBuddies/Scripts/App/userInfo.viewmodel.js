@@ -5,17 +5,11 @@
     self.name = ko.observable(name);
 
     // data-bind click
-    self.logoff = function () {
-        dataModel.logoff()
-            .done(function (data) {
-                if (data.success) {
-                    app.navigateToLoggedOff();
-                }
-                else {
-                    app.error("Logout failed.");
-                }
-            }).fail(function () {
-                app.error("An unknown logout error occurred.");
-            });
+    self.logOff = function () {
+        app.navigateToLoggedOff();
+    };
+
+    self.manage = function () {
+        app.navigateToManage();
     };
 }
