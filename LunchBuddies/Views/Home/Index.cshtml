@@ -1,4 +1,50 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model LunchBuddies.Models.IndexModel
+@using Newtonsoft.Json
+@using Newtonsoft.Json.Serialization
+@{
+    ViewBag.Title = "My Todo List";
+    ViewData.Add("CustomBody", true);
 }
-<div ng-view></div>
+
+<div data-bind="with: loading">Loading...</div>
+<div style="display: none" data-bind="visible: true">
+    <div id="userSettings" data-bind="with: user">
+        Hello, @Html.ActionLink("username", "Manage", "Account", routeValues: new { area = "" }, htmlAttributes: new { @class = "username", title = "Manage", data_bind = "text: name" })
+        <a href="#" data-bind="click: logoff">Log off</a>
+    </div>
+
+    <div id="body">
+        <header>
+            <h1>@ViewBag.Title</h1>
+        </header>
+
+        <div id="main-content">
+            <p class="error" data-bind="visible: error, text: error"></p>
+            <!-- ko with: todo -->
+            @Html.Partial("_Todo")
+            <!-- /ko -->
+            <!-- ko with: login -->
+            @Html.Partial("_Login")
+            <!-- /ko -->
+            <!-- ko with: register -->
+            @Html.Partial("_Register")
+            <!-- /ko -->
+            <!-- ko with: registerExternal -->
+            @Html.Partial("_RegisterExternal")
+            <!-- /ko -->
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/knockout")
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        var inlineData = @Html.Raw(JsonConvert.SerializeObject(Model, new JsonSerializerSettings
+        {
+            ContractResolver = new CamelCasePropertyNamesContractResolver(),
+            DefaultValueHandling = DefaultValueHandling.Ignore
+        }));
+    </script>
+    @Scripts.Render("~/bundles/todo")
+}

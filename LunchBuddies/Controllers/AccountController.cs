@@ -75,7 +75,7 @@ namespace LunchBuddies.Controllers
             Guid guid = Guid.NewGuid();
             var newUser = new User
             {
-                Name = user.Name,
+                UserName = user.Name,
                 Email = email,
                 Office = user.Office,
                 Alias = user.Alias,

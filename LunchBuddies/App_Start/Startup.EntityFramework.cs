@@ -12,7 +12,7 @@ namespace LunchBuddies
             using (var db = new ModelsDbContext())
             {
                 var query = from b in db.Users
-                            orderby b.Name
+                            orderby b.UserName
                             select b;
             }
         }

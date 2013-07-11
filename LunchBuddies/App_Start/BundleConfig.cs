@@ -49,6 +49,20 @@ namespace LunchBuddies
                         "~/Content/themes/base/jquery.ui.datepicker.css",
                         "~/Content/themes/base/jquery.ui.progressbar.css",
                         "~/Content/themes/base/jquery.ui.theme.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/knockout").Include(
+                        "~/Scripts/knockout-{version}.js"));
+            bundles.Add(new ScriptBundle("~/bundles/todo").Include(
+                "~/Scripts/app/app.bindings.js",
+                "~/Scripts/app/app.datamodel.js",
+                "~/Scripts/app/app.extenders.js",
+                "~/Scripts/app/login.viewmodel.js",
+                "~/Scripts/app/register.viewmodel.js",
+                "~/Scripts/app/registerExternal.viewmodel.js",
+                "~/Scripts/app/todo.model.js",
+                "~/Scripts/app/todo.viewmodel.js",
+                "~/Scripts/app/userInfo.viewmodel.js",
+                "~/Scripts/app/app.viewmodel.js"));
         }
     }
 }
