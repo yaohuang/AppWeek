@@ -63,18 +63,18 @@
         app.navigateToRegister();
     };
 
-    dataModel.getExternalLogins(dataModel.returnUrl, true /* generateState */)
-        .done(function (data) {
-            self.loadingExternalLogin(false);
-            if (typeof (data) === "object")
-                for (var i = 0; i < data.length; i++)
-                    self.externalLoginProviders.push(new ExternalLoginProviderViewModel(app, data[i]));
-            else
-                self.errors.push("An unknown error occurred.");
-        }).fail(function () {
-            self.loadingExternalLogin(false);
-            self.errors.push("An unknown error occurred.");
-        });
+    //dataModel.getExternalLogins(dataModel.returnUrl, true /* generateState */)
+    //    .done(function (data) {
+    //        self.loadingExternalLogin(false);
+    //        if (typeof (data) === "object")
+    //            for (var i = 0; i < data.length; i++)
+    //                self.externalLoginProviders.push(new ExternalLoginProviderViewModel(app, data[i]));
+    //        else
+    //            self.errors.push("An unknown error occurred.");
+    //    }).fail(function () {
+    //        self.loadingExternalLogin(false);
+    //        self.errors.push("An unknown error occurred.");
+    //    });
 }
 
 function ExternalLoginProviderViewModel(app, data) {
