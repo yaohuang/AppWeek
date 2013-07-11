@@ -8,6 +8,8 @@ namespace LunchBuddies
         {
             ConfigureEntityFramework(app);
             ConfigureAuth(app);
+
+            app.MapHubs();
         }
     }
 }
