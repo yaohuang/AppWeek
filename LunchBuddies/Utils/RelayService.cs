@@ -29,4 +29,11 @@ namespace LunchBuddies
             return user;
         }
     }
+
+    [ServiceContract]
+    public interface IUserService
+    {
+        [OperationContract]
+        Person FindUser(string name);
+    }
 }

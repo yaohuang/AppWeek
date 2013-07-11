@@ -5,6 +5,11 @@ namespace LunchBuddies.Models
 {
     public class User
     {
+        public User()
+        {
+            LunchRequests = new List<UserLunchRequest>();
+        }
+
         [Key]
         public string Email { get; set; }
 
@@ -16,11 +21,20 @@ namespace LunchBuddies.Models
         public string Name { get; set; }
 
         [Required]
-        public string Building { get; set; }
-
-        [Required]
         public string Office { get; set; }
 
-        public ICollection<UserLunchRequest> LunchRequests { get; set; }
+        [Required]
+        public string Telephone { get; set; }
+
+        [Required]
+        public string Alias { get; set; }
+
+        [Required]
+        public string Department { get; set; }
+
+        [Required]
+        public string Title { get; set; }
+
+        public virtual ICollection<UserLunchRequest> LunchRequests { get; set; }
     }
 }
