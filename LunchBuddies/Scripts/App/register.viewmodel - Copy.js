@@ -2,13 +2,14 @@
     var self = this;
 
     // data-bind value
-    self.email = ko.observable();
-    self.error = ko.observable();
+    self.userName = ko.observable("");
+    self.password = ko.observable("");
+    self.confirmPassword = ko.observable("");
+    self.errors = ko.observableArray();
 
     // data-bind visible
     self.registeringVisible = ko.observable(false);
     self.unknownErrorVisible = ko.observable(false);
-    self.done = ko.observable(false);
 
     // data-bind enable
     self.registering = ko.observable(false);
@@ -16,14 +17,20 @@
     // data-bind click
     self.registerClick = function () {
         self.unknownErrorVisible(false);
-        self.error("");
+        self.errors.removeAll();
         self.registering(true);
-        dataModel.register(self.email()).done(function (data) {
+        dataModel.register({
+            userName: self.userName(),
+            password: self.password(),
+            confirmPassword: self.confirmPassword()
+        }).done(function (data) {
             self.registering(false);
-            if (data.error)
-                self.error(data.error);
+            if (data.errors)
+                self.errors(data.errors);
+            else if (data.userName && data.accessToken)
+                app.navigateToLoggedIn(data.userName, data.accessToken, false);
             else
-                self.done(true);
+                self.unknownErrorVisible(true);
         }).fail(function () {
             self.registering(false);
             self.unknownErrorVisible(true);

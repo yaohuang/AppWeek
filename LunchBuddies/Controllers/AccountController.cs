@@ -21,7 +21,7 @@ namespace LunchBuddies.Controllers
     public class EmailValidationResult
     {
         public CheckEmailResult Result { get; set; }
-        public string Message { get; set; }
+        public string Error { get; set; }
     }
 
     public class AccountController : ApiController
@@ -36,7 +36,7 @@ namespace LunchBuddies.Controllers
                 return Content<EmailValidationResult>(HttpStatusCode.OK, new EmailValidationResult
                 {
                     Result = CheckEmailResult.EmailAlreadyExists,
-                    Message = "Already sent the email. Pending confirmation."
+                    Error = "Already sent the email. Pending confirmation."
                 });
             }
 
@@ -45,7 +45,7 @@ namespace LunchBuddies.Controllers
                 return Content<EmailValidationResult>(HttpStatusCode.OK, new EmailValidationResult
                 {
                     Result = CheckEmailResult.EmailAlreadyExists,
-                    Message = "Already registered. Login with your account."
+                    Error = "Already registered. Login with your account."
                 });
             }
 
@@ -54,7 +54,7 @@ namespace LunchBuddies.Controllers
                 return Content<EmailValidationResult>(HttpStatusCode.OK, new EmailValidationResult
                 {
                     Result = CheckEmailResult.InvalidEmailAddress,
-                    Message = "Sorry, we only allow microsoft domain at this time."
+                    Error = "Sorry, we only allow microsoft domain at this time."
                 });
             }
 
@@ -62,7 +62,11 @@ namespace LunchBuddies.Controllers
 
             if (user == null)
             {
-                return Content<string>(HttpStatusCode.NotFound, String.Format("Could not find the user with email: {0}.", email));
+                return Content<EmailValidationResult>(HttpStatusCode.OK, new EmailValidationResult
+                {
+                    Result = CheckEmailResult.InvalidEmailAddress,
+                    Error = String.Format("Could not find the user with email: {0}.", email)
+                });
             }
 
             if (!user.Office.StartsWith("3"))
@@ -70,7 +74,7 @@ namespace LunchBuddies.Controllers
                 return Content<EmailValidationResult>(HttpStatusCode.OK, new EmailValidationResult
                 {
                     Result = CheckEmailResult.InvalidEmailAddress,
-                    Message = "Sorry, we only allow users in building 3 at this time."
+                    Error = "Sorry, you're not qualified for a new account at this moment because you don't work in building 3."
                 });
             }
 
@@ -106,7 +110,7 @@ namespace LunchBuddies.Controllers
                 return Content<EmailValidationResult>(HttpStatusCode.OK, new EmailValidationResult
                 {
                     Result = CheckEmailResult.FailedToSendEmail,
-                    Message = "Oops, we cannot send the confirmation email at the moment. Please try again later."
+                    Error = "Oops, we cannot send the confirmation email at the moment. Please try again later."
                 });
             }
 
@@ -114,8 +118,7 @@ namespace LunchBuddies.Controllers
 
             return Content<EmailValidationResult>(HttpStatusCode.OK, new EmailValidationResult
             {
-                Result = CheckEmailResult.ConfirmationTokenSent,
-                Message = "Request submitted. Please check your email for confirmation."
+                Result = CheckEmailResult.ConfirmationTokenSent
             });
         }
         

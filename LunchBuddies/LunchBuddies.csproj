@@ -299,6 +299,7 @@
     <Content Include="Scripts\App\app.extenders.js" />
     <Content Include="Scripts\App\app.viewmodel.js" />
     <Content Include="Scripts\App\login.viewmodel.js" />
+    <Content Include="Scripts\App\register.viewmodel - Copy.js" />
     <Content Include="Scripts\App\register.viewmodel.js" />
     <Content Include="Scripts\App\registerExternal.viewmodel.js" />
     <Content Include="Scripts\App\todo.model.js" />
@@ -312,6 +313,19 @@
     <Content Include="Views\Home\_RegisterExternal.cshtml" />
     <Content Include="Views\Home\_Todo.cshtml" />
     <Content Include="Views\Home\_SignalR.cshtml" />
+    <Content Include="Views\Home\_Register - Copy.cshtml" />
+    <TypeScriptCompile Include="Scripts\App\Startup.ts" />
+    <TypeScriptCompile Include="Scripts\App\Controllers.ts" />
+    <Content Include="Scripts\App\Controllers.js">
+      <DependentUpon>Controllers.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="Scripts\App\Services.ts" />
+    <Content Include="Scripts\App\Services.js">
+      <DependentUpon>Services.ts</DependentUpon>
+    </Content>
+    <Content Include="Scripts\App\Startup.js">
+      <DependentUpon>Startup.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Properties\PublishProfiles\lunchbuddies - FTP.pubxml" />

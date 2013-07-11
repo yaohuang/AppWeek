@@ -36,7 +36,7 @@
     function externalLoginCallbackUrl(state) { return "/api/AjaxAccount/ExternalLoginCallback?state=" + (state || ""); }
     var loginUrl = "/api/AjaxAccount/Login";
     var logoffUrl = "/api/AjaxAccount/LogOff";
-    var registerUrl = "/api/AjaxAccount/Register";
+    var registerUrl = "/api/account/register";
     var registerExternalUrl = "/api/AjaxAccount/RegisterExternal";
     var userInfoUrl = "/api/AjaxAccount/UserInfo";
 
@@ -77,10 +77,10 @@
     self.logoff = function () {
         return ajaxRequest("POST", logoffUrl);
     };
-    self.register = function (user) {
-        return $.ajax(registerUrl, {
-            type: "POST",
-            data: user
+    self.register = function (data) {
+        return $.ajax(registerUrl+"?email="+data, {
+            type: "GET",
+            data: data
         });
     };
     self.registerExternal = function (user) {
