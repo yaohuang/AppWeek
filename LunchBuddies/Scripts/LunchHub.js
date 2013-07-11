@@ -1,6 +1,12 @@
 ﻿/// <reference path="jquery.signalR-2.0.0-beta1.js" />
 
 $(new function () {
+    $.connection.lunchHub.client.newsFeed = function (data) {
+        addNews(data);
+    }
+    $.connection.lunchHub.client.invite = function (data) {
+        addInvite(data);
+    }
     $.connection.lunchHub.client.echo = function (data) {
         log(data);
     }
@@ -37,6 +43,11 @@ $(new function () {
             log("transport.name=" + $.connection.hub.transport.name);
 
             $.connection.lunchHub.server.echo("Hello!");
+
+            $.connection.lunchHub.server.toNewsFeed("Hello!");
+            $.connection.lunchHub.server.fakeInvite(1);
+            $.connection.lunchHub.server.fakeInvite(2);
+            $.connection.lunchHub.server.fakeInvite(3);
         }).
         fail(function (error) {
             log("Failed to connect: " + error);
@@ -49,4 +60,32 @@ function displayState(state) {
 
 function log(message) {
     $("#Messages").append("<li>[" + new Date().toTimeString() + "] " + message + "</li>");
+}
+
+function addNews(message) {
+    $("#NewsFeedMessages").append("[" + new Date().toTimeString() + "] " + message + "<hr>");
+}
+
+function addInvite(request) {
+    var log = $("#InviteMessages");
+    log.append("From: " + request.From + "<br>");
+    log.append("Subject: " + request.Subject + "<br>");
+    log.append("Meeting Place: " + request.MeetingPlace + "<br>");
+    log.append("Invites: " + "<br>");
+    $.each(request.Invitees, function callback(index, item) {
+        log.append(item + "<br>");
+    });
+    log.append("<input type='button' id='accept" + request.Id + "' value='Accept' onClick='acceptInvite(" + request.Id + ")' />");
+    log.append("<input type='button' id='reject" + request.Id + "' value='Reject' onClick='rejectInvite(" + request.Id + ")' />");
+    log.append("<hr>");
+}
+
+function acceptInvite(id) {
+    $("#accept" + id).hide();
+    $("#reject" + id).hide();
+}
+
+function rejectInvite(id) {
+    $("#accept" + id).hide();
+    $("#reject" + id).hide();
 }

@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="Scripts/jquery-1.8.2.js"></script>
+    <script src="Scripts/jquery.signalR-2.0.0-beta1.js"></script>
+    <script src="signalr/hubs"></script>
+    <script src="Scripts/LunchHub.js"></script>
+</head>
+<body>
+    <table>
+        <tr>
+            <td>
+                <div id="NewsFeedSection" style="width: 300px; height: 700px;">
+                    <h1>News Feed</h1>
+                    <div id="NewsFeedMessages" style="width: 300px; height: 700px; overflow: scroll">
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div id="InviteSection" style="width: 300px; height: 700px;">
+                    <h1>Invites</h1>
+                    <div id="InviteMessages" style="width: 300px; height: 700px; overflow: scroll">
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <ul id="Messages" />
+</body>
+</html>

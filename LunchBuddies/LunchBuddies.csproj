@@ -318,6 +318,7 @@
     <Content Include="Scripts\App\userInfo.viewmodel.js" />
     <Content Include="Scripts\knockout-2.2.1.debug.js" />
     <Content Include="Scripts\knockout-2.2.1.js" />
+    <Content Include="signalr.html" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\_Login.cshtml" />
     <Content Include="Views\Home\_Register.cshtml" />
