@@ -2,7 +2,6 @@
     ViewBag.Title = "Lunch Buddies";
 }
 
-<div data-bind="with: loading">Loading...</div>
 <div style="display: none" data-bind="visible: true">
     <div id="userSettings" data-bind="with: user">
         Hello, <a href="#" data-bind="text: name, click: manage"></a>
@@ -18,21 +17,18 @@
             <div data-bind="foreach: errors">
                 <p class="error" data-bind="text: $data"></p>
             </div>
-            <!-- ko with: todo -->
-            @Html.Partial("_Todo")
-            <!-- /ko -->
-            <!-- ko with: login -->
-            @Html.Partial("_Login")
-            <!-- /ko -->
-            <!-- ko with: register -->
-            @Html.Partial("_Register")
-            <!-- /ko -->
-            <!-- ko with: registerExternal -->
-            @Html.Partial("_RegisterExternal")
-            <!-- /ko -->
-            <!-- ko with: manage -->
-            @Html.Partial("_Manage")
-            <!-- /ko -->
+            <div data-bind="visible: chosenViewId() == Views.Loading">
+                Loading...
+            </div>
+            <div data-bind="visible: chosenViewId() == Views.Todo, with: todo">
+                @Html.Partial("_Todo")
+            </div>
+            <div data-bind="visible: chosenViewId() == Views.Login, with: login">
+                @Html.Partial("_Login")
+            </div>
+            <div data-bind="visible: chosenViewId() == Views.Register, with: register">
+                @Html.Partial("_Register")
+            </div>
         </div>
     </div>
 </div>
@@ -41,5 +37,7 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/knockout")
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="~/Scripts/sammy-0.7.4.js"></script>
     @Scripts.Render("~/bundles/todo")
 }

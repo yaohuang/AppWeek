@@ -1,8 +1,6 @@
-﻿<div data-bind="visible: loading">Loading...</div>
-<div id="todoPanel" data-bind="visible: !loading()">
-    <button data-bind="click: addTodoList">Add Todo list</button>
+﻿<div id="todoPanel">
 
-    <div id="lists" data-bind="foreach: todoLists, visible: todoLists().length > 0">
+    @*<div id="lists" data-bind="foreach: todoLists, visible: todoLists().length > 0">
         <div class="todoList">
             <div class="header">
                 <form data-bind="validate: true">
@@ -27,5 +25,5 @@
 
             <p class="error" data-bind="visible: errorMessage, text: errorMessage"></p>
         </div>
-    </div>
+    </div>*@
 </div>

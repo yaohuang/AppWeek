@@ -1,16 +1,24 @@
 ﻿function AppViewModel(dataModel) {
     var self = this;
 
-    var Views = {
-        Loading: 0,
-        Todo: 1,
-        Login: 2,
-        Register: 3,
-        RegisterExternal: 4,
-        Manage: 5
+    self.Views = {
+        Loading: "loading",
+        Todo: "todo",
+        Login: "login",
+        Register: "register",
+        RegisterExternal: "registerExternal"
     };
 
-    var view = ko.observable(Views.Loading);
+    self.chosenViewId = ko.observable(self.Views.Loading);
+
+    //var view = ko.observable();
+
+    // Client-side routes    
+    Sammy(function () {
+        this.get('#:view', function () {
+            self.chosenViewId(this.params.view);
+        });
+    }).run();
 
     // child coordination
     self.errors = ko.observableArray();
@@ -48,75 +56,47 @@
     };
     self.navigateToTodo = function () {
         self.errors.removeAll();
-        view(Views.Todo);
+        self.chosenViewId(self.Views.Todo);
     };
     self.navigateToLoggedOff = function () {
         self.errors.removeAll();
         dataModel.clearAccessToken();
         self.navigateToLogin();
     };
-    self.navigateToLogin = function () {
+
+    self.navigateToTodo = function () {
         self.errors.removeAll();
-        self.user(null);
-        view(Views.Login);
+        self.chosenViewId(self.Views.Todo);
     };
     self.navigateToRegister = function () {
         self.errors.removeAll();
-        view(Views.Register);
+        self.chosenViewId(self.Views.Register);
     };
-    self.navigateToRegisterExternal = function (userName, loginProvider, externalAccessToken) {
-        self.errors.removeAll();
-        view(Views.RegisterExternal);
-        self.registerExternal().userName(userName);
-        self.registerExternal().loginProvider(loginProvider);
-        self.registerExternal().externalAccessToken(externalAccessToken);
-    };
-    self.navigateToManage = function (externalAccessToken, externalError) {
-        self.errors.removeAll();
-        view(Views.Manage);
 
-        if (typeof (externalAccessToken) !== "undefined" || typeof (externalError) !== "undefined")
-            self.manage().addExternalLogin(externalAccessToken, externalError);
-        else
-            self.manage().load();
+    self.navigateToLogin = function () {
+        self.errors.removeAll();
+        self.user(null);
+        self.chosenViewId(self.Views.Login);
     };
 
     // data-bind with
     self.user = ko.observable(null);
 
-    self.loading = ko.computed(function () {
-        return view() === Views.Loading;
-    });
-    self.todo = ko.computed(function () {
-        if (view() !== Views.Todo)
-            return null;
+    self.todo = new TodoViewModel(self, dataModel);
 
-        return new TodoViewModel(self, dataModel);
-    });
-    self.login = ko.computed(function () {
-        if (view() !== Views.Login)
-            return null;
+    self.login = new LoginViewModel(self, dataModel);
 
-        return new LoginViewModel(self, dataModel);
-    });
-    self.register = ko.computed(function () {
-        if (view() !== Views.Register)
-            return null;
+    self.register = new RegisterViewModel(self, dataModel);
 
-        return new RegisterViewModel(self, dataModel);
-    });
-    self.registerExternal = ko.computed(function () {
-        if (view() !== Views.RegisterExternal)
-            return null;
+    self.registerExternal = new RegisterExternalViewModel(self, dataModel);
 
-        return new RegisterExternalViewModel(self, dataModel);
-    });
-    self.manage = ko.computed(function () {
-        if (view() !== Views.Manage)
-            return null;
+    //self.loading = ko.computed(function () {
+    //    return view() === Views.Loading;
+    //});
+    //self.todo = ko.computed(function () {
+    //    if (view() !== Views.Todo)
+    //        return null;
 
-        return new ManageViewModel(self, dataModel);
-    });
 
     function cleanUpLocation() {
         window.location.hash = "";
