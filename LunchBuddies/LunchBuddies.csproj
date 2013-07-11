@@ -325,18 +325,6 @@
     <Content Include="Views\Home\_Todo.cshtml" />
     <Content Include="Views\Home\_SignalR.cshtml" />
     <Content Include="Views\Home\_Register - Copy.cshtml" />
-    <TypeScriptCompile Include="Scripts\App\Startup.ts" />
-    <TypeScriptCompile Include="Scripts\App\Controllers.ts" />
-    <Content Include="Scripts\App\Controllers.js">
-      <DependentUpon>Controllers.ts</DependentUpon>
-    </Content>
-    <TypeScriptCompile Include="Scripts\App\Services.ts" />
-    <Content Include="Scripts\App\Services.js">
-      <DependentUpon>Services.ts</DependentUpon>
-    </Content>
-    <Content Include="Scripts\App\Startup.js">
-      <DependentUpon>Startup.ts</DependentUpon>
-    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Properties\PublishProfiles\lunchbuddies - FTP.pubxml" />

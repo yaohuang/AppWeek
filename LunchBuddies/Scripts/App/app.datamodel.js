@@ -65,7 +65,7 @@
     var addExternalLoginUrl = "/api/Account/AddExternalLogin";
     var changePasswordUrl = "/api/Account/changePassword";
     var loginUrl = "/api/Account/Login";
-    var registerUrl = "/api/Account/Register";
+    var registerUrl = "/api/account/register";
     var registerExternalUrl = "/api/Account/RegisterExternal";
     var removeLoginUrl = "/api/Account/RemoveLogin";
     var setPasswordUrl = "/api/Account/setPassword";
@@ -117,8 +117,8 @@
         });
     };
     self.register = function (data) {
-        return $.ajax(registerUrl, {
-            type: "POST",
+        return $.ajax(registerUrl + "?email=" + data, {
+            type: "GET",
             data: data
         });
     };
