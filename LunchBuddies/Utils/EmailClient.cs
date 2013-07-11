@@ -30,7 +30,7 @@ namespace LunchBuddies
             query.AppendFormat("&from={0}", HttpUtility.UrlEncode("confirmation@lunchbuddies.com"));
             query.AppendFormat("&to={0}", HttpUtility.UrlEncode(destination));
             query.AppendFormat("&subject={0}", HttpUtility.UrlEncode("registration confirmation"));
-            query.AppendFormat("&text={0}", HttpUtility.UrlEncode(content));
+            query.AppendFormat("&html={0}", HttpUtility.UrlEncode(content));
             uri.Query = query.ToString();
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, uri.Uri);
             return _client.SendAsync(request);

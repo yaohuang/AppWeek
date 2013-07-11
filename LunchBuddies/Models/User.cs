@@ -38,6 +38,8 @@ namespace LunchBuddies.Models
         [Required]
         public string Title { get; set; }
 
+        public string PictureUrl { get; set; }
+
         public virtual ICollection<UserLunchRequest> LunchRequests { get; set; }
     }
 }

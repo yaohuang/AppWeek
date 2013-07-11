@@ -2,6 +2,7 @@
 [Bb]in/
 [Oo]bj/
 App_Data/
+PublishProfiles/
 
 # mstest test results
 TestResults
