@@ -202,7 +202,9 @@
                     self.navigateToManage(externalAccessToken, externalError);
                 }
                 else {
-                    self.navigateToLogin();
+                    if (self.chosenViewId() != self.Views.ConfirmRegistration) {
+                        self.navigateToLogin();
+                    }
                 }
             })
             .fail(function () {
@@ -237,8 +239,11 @@
             .done(function (data) {
                 if (data.userName)
                     self.navigateToLoggedIn(data.userName);
-                else
-                    self.navigateToLogin();
+                else {
+                    if (self.chosenViewId() != self.Views.ConfirmRegistration) {
+                        self.navigateToLogin();
+                    }
+                }
             })
             .fail(function () {
                 self.navigateToLogin();

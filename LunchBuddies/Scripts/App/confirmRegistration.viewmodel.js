@@ -35,8 +35,8 @@
             self.registering(false);
             if (data.errors)
                 self.errors(data.errors);
-            else if (data.userName && data.accessToken)
-                app.navigateToLoggedIn(data.userName, data.accessToken, false);
+            else if (data.userName && data.access_token)
+                app.navigateToLoggedIn(data.userName, data.access_token, false);
             else
                 self.unknownErrorVisible(true);
         }).fail(function () {

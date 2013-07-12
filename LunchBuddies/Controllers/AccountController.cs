@@ -102,7 +102,7 @@ namespace LunchBuddies.Controllers
 
             Guid guid = Guid.NewGuid();
             string pictureUrl = Url.Link("DefaultApi", new { controller = "ProfilePicture", action = "GetPicture", alias = user.Alias });
-            var newUser = new AppUser
+            var newUser = new UserViewModel
             {
                 UserName = user.Name,
                 Email = email,
@@ -111,8 +111,7 @@ namespace LunchBuddies.Controllers
                 Department = user.Department,
                 Telephone = user.Telephone,
                 Title = user.Title,
-                PictureUrl = pictureUrl,
-                Password = "temp"
+                PictureUrl = pictureUrl
             };
             context.PendingRegistrations.Add(new PendingRegistration
             {
@@ -121,7 +120,8 @@ namespace LunchBuddies.Controllers
             });
 
             // Send email
-            string link = Url.Link("DefaultApi", new { controller = "Home", action = "Index" });
+
+            string link = Url.Link("Default", new { controller = "Home", action = "Index" });
             link += "#confirmregistration/" + guid;
             HttpResponseMessage response = await EmailClient.SendEmailAsync(email, 
                 String.Format(
@@ -172,7 +172,7 @@ namespace LunchBuddies.Controllers
                     return StatusCode(HttpStatusCode.BadRequest);
                 }
 
-                return Content<AppUser>(HttpStatusCode.OK, pendingRegistration.User);
+                return Content<UserViewModel>(HttpStatusCode.OK, pendingRegistration.User);
             }
         }
 
