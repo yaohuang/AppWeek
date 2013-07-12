@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using Microsoft.AspNet.Identity.EntityFramework;
 using AppUser=LunchBuddies.Models.User;
 using System.Globalization;
+using Microsoft.AspNet.Identity;
 
 namespace LunchBuddies.Controllers
 {
@@ -187,15 +188,34 @@ namespace LunchBuddies.Controllers
                 return OAuthBadRequest(OAuthAccessTokenError.UnsupportedGrantType);
             }
 
+            AppUser user = context.Users.Find(model.username);
+
+            if (user == null || user.Password != model.password)
+            {
+                return OAuthBadRequest(OAuthAccessTokenError.InvalidRequest,
+                    "The user name or password provided is incorrect.");
+            }
+
             ClaimsIdentity identity = await GetIdentityAsync(model.username);
             string token = Bearer.AccessTokenHandler.Protect(new AuthenticationTicket(identity, new AuthenticationExtra()));
 
             return OAuthAccessToken(token, "bearer", model.username);
         }
 
+        // GET api/Account/UserInfo
+        [HttpGet]
+        public UserInfoViewModel UserInfo()
+        {
+            return new UserInfoViewModel
+            {
+                UserName = User.Identity.GetUserName()
+            };
+        }
+
         private async Task<ClaimsIdentity> GetIdentityAsync(string userId)
         {
-            IList<Claim> claims = null;
+            IList<Claim> claims = await AuthenticationManager.GetUserIdentityClaims(userId, new Claim[0]);
+            claims.Add(new Claim(AuthenticationManager.UserNameClaimType, userId));
 
             return new ClaimsIdentity(claims, Bearer.AuthenticationType, AuthenticationManager.UserNameClaimType,
                 AuthenticationManager.RoleClaimType);
