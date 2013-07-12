@@ -29,7 +29,7 @@
         });
         this.get('#confirmregistration/:token', function () {
             self.chosenViewId(self.Views.ConfirmRegistration);
-            //self.confirmRegistration.token(this.params.token);
+            self.confirmRegistration.token(this.params.token);
             dataModel.confirmRegistration(this.params.token).done(function (data) {
                 self.confirmRegistration.userName(data.userName);
                 self.confirmRegistration.email(data.email);

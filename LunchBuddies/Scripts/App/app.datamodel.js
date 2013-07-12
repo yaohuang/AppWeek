@@ -127,8 +127,8 @@
             data: data
         });
     };
-    self.registerExternal = function (data) {
-        return $.ajax(registerExternalUrl, {
+    self.createUser = function (data) {
+        return $.ajax("/api/users/CreateUser", {
             type: "POST",
             data: data
         });

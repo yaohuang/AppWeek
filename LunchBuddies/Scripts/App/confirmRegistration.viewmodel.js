@@ -28,10 +28,9 @@
         self.unknownErrorVisible(false);
         self.errors.removeAll();
         self.registering(true);
-        dataModel.register({
-            userName: self.userName(),
-            password: self.password(),
-            confirmPassword: self.confirmPassword()
+        dataModel.createUser({
+            token: self.token(),
+            password: self.password()
         }).done(function (data) {
             self.registering(false);
             if (data.errors)
