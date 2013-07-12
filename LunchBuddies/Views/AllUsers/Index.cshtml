@@ -11,7 +11,7 @@
     <script type="text/javascript">
         function SubmitFrm() {
             var Searchtxt = document.getElementById("floor").value;
-            window.location = "./Floor/?floor=" + Searchtxt;
+            window.location = '@Url.Action("Floor", "AllUsers")'+'?floor=' + Searchtxt;
         }
     </script>
     
