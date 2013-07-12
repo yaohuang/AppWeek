@@ -201,6 +201,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\odata\LunchRequestsController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\odata\UserLunchRequestsController.cs" />
     <Compile Include="Controllers\ProfilePictureController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Hubs\LunchHub.cs" />

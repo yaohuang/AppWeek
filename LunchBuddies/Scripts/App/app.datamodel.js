@@ -61,7 +61,7 @@
     function externalLoginsUrl(returnUrl, generateState) { return "/api/Account/ExternalLogins?returnUrl=" + (encodeURIComponent(returnUrl)) + "&generateState=" + (generateState ? "true" : "false"); }
     function manageInfoUrl(returnUrl, generateState) { return "/api/Account/ManageInfo?returnUrl=" + (encodeURIComponent(returnUrl)) + "&generateState=" + (generateState ? "true" : "false"); }
     function todoItemUrl(id) { return "/api/Todo/" + (id || ""); }
-    function todoListUrl(id) { return "/api/TodoList/" + (id || ""); }
+    function todoListUrl(id) { return "/odata/LunchRequests("+(id||"")+")"; }
     var addExternalLoginUrl = "/api/Account/AddExternalLogin";
     var changePasswordUrl = "/api/Account/changePassword";
     var loginUrl = "/api/Account/Login";
@@ -93,7 +93,7 @@
         return ajaxRequest("DELETE", todoItemUrl(todoItem.todoItemId));
     };
     self.deleteTodoList = function (todoList) {
-        return ajaxRequest("DELETE", todoListUrl(todoList.todoListId));
+        return ajaxRequest("DELETE", todoListUrl(todoList.Id));
     };
     self.externalLoginComplete = function (accessToken) {
         return $.ajax(externalLoginCompleteUrl(accessToken));
@@ -139,7 +139,7 @@
         return ajaxRequest("PUT", todoItemUrl(todoItem.todoItemId), todoItem, "text");
     };
     self.saveChangedTodoList = function (todoList) {
-        return ajaxRequest("PUT", todoListUrl(todoList.todoListId), todoList, "text");
+        return ajaxRequest("PATCH", todoListUrl(todoList.Id), todoList, "text");
     };
     self.saveNewTodoItem = function (todoItem) {
         return ajaxRequest("POST", todoItemUrl(), todoItem);

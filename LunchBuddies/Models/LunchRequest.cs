@@ -13,15 +13,15 @@ namespace LunchBuddies.Models
         public string MeetingPlace { get; set; }
 
         [Required]
-        public User Creator { get; set; }
+        public virtual User Creator { get; set; }
 
         public DateTime DateTimeCreated { get; set; }
 
         public DateTime DateTimeRequest { get; set; }
 
-        public ICollection<UserLunchRequest> Users { get; set; }
+        public virtual ICollection<UserLunchRequest> Users { get; set; }
 
-        public ICollection<Interest> Interests { get; set; }
+        public virtual ICollection<Interest> Interests { get; set; }
 
         public string Subject { get; set; }
     }

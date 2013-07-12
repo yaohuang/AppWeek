@@ -31,6 +31,7 @@ namespace LunchBuddies
             builder.EntitySet<User>("Users");
             builder.EntitySet<LunchRequest>("LunchRequests");
             builder.EntitySet<UserLunchRequest>("UserLunchRequests");
+            builder.EntitySet<Interest>("Interests");
             return builder.GetEdmModel();
         }
     }

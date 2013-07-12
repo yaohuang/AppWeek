@@ -40,13 +40,15 @@ function todoList(dataModel, data) {
     }
 
     // Persisted properties
-    self.todoListId = data.todoListId;
-    self.userId = data.userId || "to be replaced";
-    self.title = ko.observable(data.title || "My todos");
-    self.todos = ko.observableArray(importTodoItems(data.todos));
+    self.MeetingPlace = ko.observable(data.MeetingPlace || "to be replaced..");
+    self.Id = data.Id;
+    self.Subject = ko.observable(data.Subject || "Some subject..");
+    //self.userId = data.userId || "to be replaced";
+    //self.title = ko.observable(data.title || "My todos");
+    //self.todos = ko.observableArray(importTodoItems(data.todos));
 
     // Non-persisted properties
-    self.isEditingListTitle = ko.observable(false);
+    //self.isEditingListTitle = ko.observable(false);
     self.newTodoTitle = ko.observable();
     self.errorMessage = ko.observable();
 
@@ -82,14 +84,21 @@ function todoList(dataModel, data) {
             });
     };
 
-    // Auto-save when these properties change
-    self.title.subscribe(function () {
+     //Auto-save when these properties change
+    self.MeetingPlace.subscribe(function () {
         self.errorMessage(null);
         return dataModel.saveChangedTodoList(self)
             .fail(function () {
-                self.errorMessage("Error updating the todo list title. Please make sure it is non-empty.");
+                self.errorMessage("Error updating the lunch meeting place.");
+            });
+    });
+    self.Subject.subscribe(function () {
+        self.errorMessage(null);
+        return dataModel.saveChangedTodoList(self)
+            .fail(function () {
+                self.errorMessage("Error updating the lunch subject.");
             });
     });
 
-    self.toJson = function () { return ko.toJSON(self) };
+    self.toJson = function () { return ko.toJSON({ MeetingPlace : self.MeetingPlace, Subject : self.Subject }) };
 }

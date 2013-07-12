@@ -11,8 +11,6 @@
 
     self.addTodoList = function () {
         var list = new todoList(dataModel); // todoList is injected by todo.model.js
-        list.isEditingListTitle(true);
-        list.errorMessage(null);
         dataModel.saveNewTodoList(list)
             .done(addSucceeded)
             .fail(addFailed);
@@ -42,7 +40,7 @@
     dataModel.getTodoLists()
         .done(function (data) {
             self.loading(false);
-            var mappedTodoLists = $.map(data, function (list) {
+            var mappedTodoLists = $.map(data.value, function (list) {
                 return new todoList(dataModel, list); // todoList is injected by todo.model.js
             });
             self.todoLists(mappedTodoLists);

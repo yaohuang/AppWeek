@@ -51,6 +51,8 @@
         if (accessToken)
             dataModel.setAccessToken(accessToken, persistent)
 
+        dataModel.userNamme = userName;
+
         self.user(new UserInfoViewModel(self, userName, dataModel));
         self.navigateToTodo();
     };

@@ -41,5 +41,7 @@ namespace LunchBuddies.Models
         public string PictureUrl { get; set; }
 
         public virtual ICollection<UserLunchRequest> LunchRequests { get; set; }
+
+        public virtual ICollection<LunchRequest> CreatedRequests { get; set; }
     }
 }

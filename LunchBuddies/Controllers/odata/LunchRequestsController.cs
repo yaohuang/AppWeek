@@ -8,40 +8,65 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.OData;
+using Microsoft.AspNet.Identity;
 
 namespace LunchBuddies.Controllers
 {
     public class LunchRequestsController : ODataController
     {
-        private ModelsDbContext _db = new ModelsDbContext();
+        private ModelsDbContext context = new ModelsDbContext();
 
         [Queryable]
-        public IQueryable<LunchRequest> GetLunchRequests()
+        public IEnumerable<LunchRequest> GetLunchRequests()
         {
-            return _db.LunchRequests;
+            User u = GetCurrentUser();
+
+            var createdLunches = context.LunchRequests.Where(l => l.Creator.Email == u.Email);
+            return u.LunchRequests.Select(l => l.LunchRequest).ToArray().Union(createdLunches.ToArray());
         }
 
         [Queryable]
         public SingleResult<LunchRequest> GetLunchRequest([FromODataUri]int id)
         {
-            return SingleResult.Create(_db.LunchRequests.Where(l => l.Id == id));
+            return SingleResult.Create(context.LunchRequests.Where(l => l.Id == id));
         }
 
         public async Task<HttpResponseMessage> PostLunchRequest(LunchRequest lunchRequest)
         {
-            lunchRequest = _db.LunchRequests.Add(lunchRequest);
-            await _db.SaveChangesAsync();
+            if (lunchRequest == null && !ModelState.IsValid)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+            }
+
+            lunchRequest.Creator = GetCurrentUser();
+
+            lunchRequest = context.LunchRequests.Add(lunchRequest);
+
+            await context.SaveChangesAsync();
 
             return Request.CreateResponse(HttpStatusCode.Created, lunchRequest);
         }
 
-        public async Task<HttpResponseMessage> DeleteLunchRequest([FromODataUri]int id)
+        public async Task<HttpResponseMessage> PatchLunchRequest([FromODataUri]int key, Delta<LunchRequest> delta)
         {
-            LunchRequest lunchRequest = new LunchRequest { Id = id };
-            _db.Entry(lunchRequest).State = System.Data.Entity.EntityState.Deleted;
-            await _db.SaveChangesAsync();
+            context.Configuration.ValidateOnSaveEnabled = false;
+            var lr = context.LunchRequests.Single(s => s.Id == key);
+            delta.Patch(lr);
+            await context.SaveChangesAsync();
+            return Request.CreateResponse(HttpStatusCode.OK);
+        }
+
+        public async Task<HttpResponseMessage> DeleteLunchRequest([FromODataUri]int key)
+        {
+            context.LunchRequests.RemoveRange(context.LunchRequests.Where(l => l.Id == key));
+            await context.SaveChangesAsync();
 
             return Request.CreateResponse(HttpStatusCode.OK);
+        }
+
+        private User GetCurrentUser()
+        {
+            return context.Users.Find(User.Identity.GetUserName());
         }
     }
 }

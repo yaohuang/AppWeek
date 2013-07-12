@@ -23,6 +23,10 @@ namespace LunchBuddies.Models
             base.OnModelCreating(modelBuilder);
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
 
+            modelBuilder.Entity<LunchRequest>()
+                .HasRequired(l => l.Creator)
+                .WithMany(u => u.CreatedRequests);
+
             // set the default storage type of all DateTime columns to datetime2
             modelBuilder.Properties<DateTime>().Configure(p => p
                 .HasColumnType("datetime2"));
