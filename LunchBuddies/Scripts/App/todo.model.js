@@ -43,6 +43,7 @@ function todoList(dataModel, data) {
     self.MeetingPlace = ko.observable(data.MeetingPlace || "to be replaced..");
     self.Id = data.Id;
     self.Subject = ko.observable(data.Subject || "Some subject..");
+    self.Users = ko.observable(data.Users || ['Yao', 'Gustavo', 'Luke', 'Raghu']);
     //self.userId = data.userId || "to be replaced";
     //self.title = ko.observable(data.title || "My todos");
     //self.todos = ko.observableArray(importTodoItems(data.todos));
