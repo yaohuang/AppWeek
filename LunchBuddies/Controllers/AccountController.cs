@@ -53,7 +53,7 @@ namespace LunchBuddies.Controllers
         [HttpGet]
         public async Task<IHttpActionResult> Register(string email)
         {
-            if(context.PendingRegistrations.Any(reg => String.Equals(reg.User.Email, email)))
+            if(context.PendingRegistrations.Any(reg => String.Equals(reg.UserView.Email, email)))
             {
                 return Content<EmailValidationResult>(HttpStatusCode.OK, new EmailValidationResult
                 {
@@ -115,7 +115,7 @@ namespace LunchBuddies.Controllers
             };
             context.PendingRegistrations.Add(new PendingRegistration
             {
-                User = newUser,
+                UserView = newUser,
                 Id = guid
             });
 
@@ -148,7 +148,7 @@ namespace LunchBuddies.Controllers
         [HttpGet]
         public Task<IHttpActionResult> ResendConfirmation(string email)
         {
-            var pendingRegistration = context.PendingRegistrations.FirstOrDefault(reg => String.Equals(reg.User.Email, email));
+            var pendingRegistration = context.PendingRegistrations.FirstOrDefault(reg => String.Equals(reg.UserView.Email, email));
             if (pendingRegistration != null)
             {
                 context.PendingRegistrations.Remove(pendingRegistration);
@@ -172,7 +172,7 @@ namespace LunchBuddies.Controllers
                     return StatusCode(HttpStatusCode.BadRequest);
                 }
 
-                return Content<UserViewModel>(HttpStatusCode.OK, pendingRegistration.User);
+                return Content<UserViewModel>(HttpStatusCode.OK, pendingRegistration.UserView);
             }
         }
 

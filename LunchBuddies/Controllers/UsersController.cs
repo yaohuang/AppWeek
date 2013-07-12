@@ -47,7 +47,7 @@ namespace LunchBuddies.Controllers
                 {
                     return StatusCode(HttpStatusCode.BadRequest);
                 }
-                var user = pendingRegistration.User;                
+                var user = pendingRegistration.UserView;                
                 context.Users.Add(new LunchBuddies.Models.User
                     {
                         UserName = user.UserName,

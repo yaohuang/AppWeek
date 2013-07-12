@@ -7,7 +7,8 @@ namespace LunchBuddies.Models
 {
     public class PendingRegistration
     {
-        public virtual UserViewModel User { get; set; }
+        public virtual User User { get; set; }
+        public virtual UserViewModel UserView { get; set; }
         public Guid Id { get; set; }
     }
 }
