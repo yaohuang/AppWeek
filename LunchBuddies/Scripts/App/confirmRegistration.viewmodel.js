@@ -1,10 +1,19 @@
-﻿function RegisterViewModel(app, dataModel) {
+﻿function ConfirmRegistrationViewModel(app, dataModel) {
     var self = this;
 
     // data-bind value
-    self.userName = ko.observable("");
-    self.password = ko.observable("");
-    self.confirmPassword = ko.observable("");
+    self.token = ko.observable();
+    self.userName = ko.observable();
+
+    self.email = ko.observable();
+    self.office = ko.observable();
+    self.telephone = ko.observable();
+    self.department = ko.observable();
+    self.title = ko.observable();
+    self.pictureUrl = ko.observable();
+
+    self.password = ko.observable();
+    self.confirmPassword = ko.observable();
     self.errors = ko.observableArray();
 
     // data-bind visible
@@ -19,10 +28,9 @@
         self.unknownErrorVisible(false);
         self.errors.removeAll();
         self.registering(true);
-        dataModel.register({
-            userName: self.userName(),
-            password: self.password(),
-            confirmPassword: self.confirmPassword()
+        dataModel.createUser({
+            token: self.token(),
+            password: self.password()
         }).done(function (data) {
             self.registering(false);
             if (data.errors)

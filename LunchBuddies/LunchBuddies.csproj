@@ -311,7 +311,7 @@
     <Content Include="Scripts\App\app.extenders.js" />
     <Content Include="Scripts\App\app.viewmodel.js" />
     <Content Include="Scripts\App\login.viewmodel.js" />
-    <Content Include="Scripts\App\register.viewmodel - Copy.js" />
+    <Content Include="Scripts\App\confirmRegistration.viewmodel.js" />
     <Content Include="Scripts\App\register.viewmodel.js" />
     <Content Include="Scripts\App\registerExternal.viewmodel.js" />
     <Content Include="Scripts\App\todo.model.js" />
@@ -328,7 +328,7 @@
     <Content Include="Views\Home\_RegisterExternal.cshtml" />
     <Content Include="Views\Home\_Todo.cshtml" />
     <Content Include="Views\Home\_SignalR.cshtml" />
-    <Content Include="Views\Home\_Register - Copy.cshtml" />
+    <Content Include="Views\Home\_ConfirmRegistration.cshtml" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Properties\PublishProfiles\lunchbuddies - FTP.pubxml" />

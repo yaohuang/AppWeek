@@ -29,6 +29,9 @@
             <div data-bind="visible: chosenViewId() == Views.Register, with: register">
                 @Html.Partial("_Register")
             </div>
+            <div data-bind="visible: chosenViewId() == Views.ConfirmRegistration, with: confirmRegistration">
+                @Html.Partial("_ConfirmRegistration")
+            </div>
         </div>
     </div>
 </div>

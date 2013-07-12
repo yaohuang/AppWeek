@@ -6,14 +6,18 @@ using LunchBuddies.Models;
 
 namespace LunchBuddies.Controllers
 {
+    public class CreateUserViewModel
+    {
+        public string Token { get; set; }
+        public string Password { get; set; }
+    }
     public class UsersController : ApiController
     {
         private ModelsDbContext context = new ModelsDbContext();
 
-        [HttpGet]
-        public IHttpActionResult CreateUser(string token, string password)
+        public IHttpActionResult CreateUser(CreateUserViewModel model)
         {
-            Guid tokenId = Guid.Parse(token);
+            Guid tokenId = Guid.Parse(model.Token);
             using (ModelsDbContext context = new ModelsDbContext())
             {
                 PendingRegistration pendingRegistration = context.PendingRegistrations.FirstOrDefault(reg => reg.Id == tokenId);
@@ -21,6 +25,7 @@ namespace LunchBuddies.Controllers
                 {
                     return StatusCode(HttpStatusCode.BadRequest);
                 }
+                pendingRegistration.User.Password = model.Password;
                 context.Users.Add(pendingRegistration.User);
                 context.PendingRegistrations.Remove(pendingRegistration);
                 context.SaveChanges();

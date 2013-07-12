@@ -6,17 +6,41 @@
         Todo: "todo",
         Login: "login",
         Register: "register",
-        RegisterExternal: "registerExternal"
+        ConfirmRegistration: "confirmregistration"
     };
 
     self.chosenViewId = ko.observable(self.Views.Loading);
 
-    //var view = ko.observable();
+    // data-bind with
+    self.user = ko.observable(null);
+
+    self.todo = new TodoViewModel(self, dataModel);
+
+    self.login = new LoginViewModel(self, dataModel);
+
+    self.register = new RegisterViewModel(self, dataModel);
+
+    self.confirmRegistration = new ConfirmRegistrationViewModel(self, dataModel);
 
     // Client-side routes    
     Sammy(function () {
         this.get('#:view', function () {
             self.chosenViewId(this.params.view);
+        });
+        this.get('#confirmregistration/:token', function () {
+            self.chosenViewId(self.Views.ConfirmRegistration);
+            self.confirmRegistration.token(this.params.token);
+            dataModel.confirmRegistration(this.params.token).done(function (data) {
+                self.confirmRegistration.userName(data.userName);
+                self.confirmRegistration.email(data.email);
+                self.confirmRegistration.office(data.office);
+                self.confirmRegistration.telephone(data.telephone);
+                self.confirmRegistration.department(data.department);
+                self.confirmRegistration.title(data.title);
+                self.confirmRegistration.pictureUrl(data.pictureUrl);
+            }).fail(function () {
+                alert("something went wrong.");
+            });
         });
     }).run();
 
@@ -81,16 +105,6 @@
         self.chosenViewId(self.Views.Login);
     };
 
-    // data-bind with
-    self.user = ko.observable(null);
-
-    self.todo = new TodoViewModel(self, dataModel);
-
-    self.login = new LoginViewModel(self, dataModel);
-
-    self.register = new RegisterViewModel(self, dataModel);
-
-    self.registerExternal = new RegisterExternalViewModel(self, dataModel);
 
     //self.loading = ko.computed(function () {
     //    return view() === Views.Loading;

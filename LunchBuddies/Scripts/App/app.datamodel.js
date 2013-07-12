@@ -116,14 +116,19 @@
             data: data
         });
     };
+    self.confirmRegistration = function (data) {
+        return $.ajax("/api/Account/RegistrationConfirmation"+"?token="+data, {
+            type: "GET"
+        });
+    };
     self.register = function (data) {
         return $.ajax(registerUrl + "?email=" + data, {
             type: "GET",
             data: data
         });
     };
-    self.registerExternal = function (data) {
-        return $.ajax(registerExternalUrl, {
+    self.createUser = function (data) {
+        return $.ajax("/api/users/CreateUser", {
             type: "POST",
             data: data
         });

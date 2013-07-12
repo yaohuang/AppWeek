@@ -1,0 +1,48 @@
+﻿<div class="todoList" id="registerPanel">
+    <form id="registerForm">
+        <fieldset>
+            <legend>Confirm Registration</legend>
+            <img data-bind="attr: { src: pictureUrl}" />            
+            <ul>
+                <li>
+                    <label for="UserName">User name</label>
+                    <p data-bind="text: userName"></p>
+                </li>
+                <li>
+                    <label for="UserName">Email</label>
+                    <p data-bind="text: email"></p>
+                </li>
+                <li>
+                    <label for="UserName">Office</label>
+                    <p data-bind="text: office"></p>
+                </li>
+                <li>
+                    <label for="UserName">Telephone</label>
+                    <p data-bind="text: telephone"></p>
+                </li>
+                <li>
+                    <label for="UserName">Department</label>
+                    <p data-bind="text: department"></p>
+                </li>
+                <li>
+                    <label for="UserName">Title</label>
+                    <p data-bind="text: title"></p>
+                </li>
+                <li>
+                    <label for="Password">Password</label>
+                    <input type="password" name="Password" data-bind="value: password" />
+                </li>
+                <li>
+                    <label for="ConfirmPassword">Confirm password</label>
+                    <input type="password" name="ConfirmPassword" data-bind="value: confirmPassword" />
+                </li>
+            </ul>
+            <button type="submit" data-bind="click: registerClick, enable: !registering()">Sign up</button>
+            <span data-bind="visible: registeringVisible">Signing up...</span>
+            <span data-bind="visible: unknownErrorVisible">An unknown error occurred.</span>
+            <ul class="validation-summary-errors" data-bind="foreach: errors">
+                <li data-bind="text: $data"></li>
+            </ul>
+        </fieldset>
+    </form>
+</div>

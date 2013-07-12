@@ -61,7 +61,7 @@ namespace LunchBuddies
                 "~/Scripts/app/app.extenders.js",
                 "~/Scripts/app/login.viewmodel.js",
                 "~/Scripts/app/register.viewmodel.js",
-                "~/Scripts/app/registerExternal.viewmodel.js",
+                "~/Scripts/app/confirmRegistration.viewmodel.js",
                 "~/Scripts/app/todo.model.js",
                 "~/Scripts/app/todo.viewmodel.js",
                 "~/Scripts/app/userInfo.viewmodel.js",
