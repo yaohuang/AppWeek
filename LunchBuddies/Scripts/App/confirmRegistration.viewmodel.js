@@ -1,10 +1,19 @@
-﻿function RegisterViewModel(app, dataModel) {
+﻿function ConfirmRegistrationViewModel(app, dataModel) {
     var self = this;
 
     // data-bind value
-    self.userName = ko.observable("");
-    self.password = ko.observable("");
-    self.confirmPassword = ko.observable("");
+    self.token = ko.observable();
+    self.userName = ko.observable();
+
+    self.email = ko.observable();
+    self.office = ko.observable();
+    self.telephone = ko.observable();
+    self.department = ko.observable();
+    self.title = ko.observable();
+    self.pictureUrl = ko.observable();
+
+    self.password = ko.observable();
+    self.confirmPassword = ko.observable();
     self.errors = ko.observableArray();
 
     // data-bind visible

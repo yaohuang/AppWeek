@@ -116,6 +116,11 @@
             data: data
         });
     };
+    self.confirmRegistration = function (data) {
+        return $.ajax("/api/Account/RegistrationConfirmation"+"?token="+data, {
+            type: "GET"
+        });
+    };
     self.register = function (data) {
         return $.ajax(registerUrl + "?email=" + data, {
             type: "GET",

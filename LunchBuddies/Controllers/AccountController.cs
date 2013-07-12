@@ -121,7 +121,8 @@ namespace LunchBuddies.Controllers
             });
 
             // Send email
-            string link = Url.Link("DefaultApi", new { controller = "Account", action = "RegistrationConfirmation", token = guid });
+            string link = Url.Link("DefaultApi", new { controller = "Home", action = "Index" });
+            link += "#confirmregistration/" + guid;
             HttpResponseMessage response = await EmailClient.SendEmailAsync(email, 
                 String.Format(
                     "Please complete your account registration by clicking the link below:<br/><a href='{0}'>Complete Registration</a>", 
