@@ -198,6 +198,7 @@
     <Compile Include="App_Start\Startup.EntityFramework.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AllUsersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\odata\LunchRequestsController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -217,7 +218,7 @@
     <Compile Include="Results\OAuthAccessTokenResult.cs" />
     <Compile Include="Results\OAuthImplicitAccessTokenErrorResult.cs" />
     <Compile Include="Results\OAuthImplicitAccessTokenResult.cs" />
-    <Compile Include="Utils\EmailClient.cs" />
+    <Compile Include="Views\Account\Utils\EmailClient.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -240,7 +241,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reference.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="Utils\RelayService.cs" />
+    <Compile Include="Views\Account\Utils\RelayService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-responsive.css" />
@@ -376,6 +377,8 @@
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\AllUsers\Index.cshtml" />
+    <Content Include="Views\AllUsers\Floor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

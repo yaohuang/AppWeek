@@ -20,9 +20,12 @@ namespace LunchBuddies.Controllers
         public IEnumerable<LunchRequest> GetLunchRequests()
         {
             User u = GetCurrentUser();
-
-            var createdLunches = context.LunchRequests.Where(l => l.Creator.Email == u.Email);
-            return u.LunchRequests.Select(l => l.LunchRequest).ToArray().Union(createdLunches.ToArray());
+            if (u != null)
+            {
+                var createdLunches = context.LunchRequests.Where(l => l.Creator.Email == u.Email);
+                return u.LunchRequests.Select(l => l.LunchRequest).ToArray().Union(createdLunches.ToArray());    
+            }
+            return new List<LunchRequest>();
         }
 
         [Queryable]

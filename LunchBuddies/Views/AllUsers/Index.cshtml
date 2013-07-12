@@ -1,0 +1,78 @@
+@model IEnumerable<LunchBuddies.Models.User>
+
+@{
+    ViewBag.Title = "All Users";
+}
+
+<h2>All Users</h2>
+
+<div id="filter">
+    
+    <script type="text/javascript">
+        function SubmitFrm() {
+            var Searchtxt = document.getElementById("floor").value;
+            window.location = "./Floor/?floor=" + Searchtxt;
+        }
+    </script>
+    
+    <p>
+        Floor Number
+        <form class="form-vertical" data-bind="visible: !done()">
+            <input name="floor" type="text" id="floor" class="field" />
+            <input type="button" id="btnSearch" class="btn" onclick="javascript:SubmitFrm()" value="Filter by floor"/>
+        </form>
+    </p>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            User Name
+        </th>
+        <th>
+            Office Number
+        </th>
+        <th>
+            Telephone Number
+        </th>
+        <th>
+            Alias
+        </th>
+        <th>
+            Department
+        </th>
+        <th>
+            Title
+        </th>
+        <th>
+            Picture
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Office)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Telephone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Alias)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Department)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            <img src="@Html.DisplayFor(modelItem => item.PictureUrl)" />
+        </td>
+    </tr>
+}
+
+</table>
