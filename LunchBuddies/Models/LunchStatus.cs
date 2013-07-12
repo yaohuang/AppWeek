@@ -2,8 +2,8 @@
 {
     public enum LunchStatus
     {
-        Unanswered,
-        Accepted,
-        Rejected,
+        Unanswered = 0,
+        Accepted = 100,
+        Rejected = 200,
     }
 }

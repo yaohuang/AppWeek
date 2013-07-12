@@ -1,14 +1,15 @@
 ﻿/// <reference path="jquery.signalR-2.0.0-beta1.js" />
 
-$(new function () {
+function startSignalR() {
     $.connection.lunchHub.client.newsFeed = function (data) {
         addNews(data);
     }
     $.connection.lunchHub.client.invite = function (data) {
         addInvite(data);
     }
-    $.connection.lunchHub.client.echo = function (data) {
-        log(data);
+    $.connection.lunchHub.client.inviteResponse = function (data) {
+        var label = $("#UserLunchRequest_" + data.Id);
+        label.text(data.Status);
     }
 
     $.connection.hub.logging = true;
@@ -42,17 +43,15 @@ $(new function () {
             log("Connected");
             log("transport.name=" + $.connection.hub.transport.name);
 
-            $.connection.lunchHub.server.echo("Hello!");
-
-            $.connection.lunchHub.server.toNewsFeed("Hello!");
-            $.connection.lunchHub.server.fakeInvite(1);
-            $.connection.lunchHub.server.fakeInvite(2);
-            $.connection.lunchHub.server.fakeInvite(3);
+            var userName = $("#userInfo").text();
+            $.connection.lunchHub.state.UserName = userName;
+            $.connection.lunchHub.server.setIdentity(userName);
+            $.connection.lunchHub.server.invitations();
         }).
         fail(function (error) {
             log("Failed to connect: " + error);
         });
-});
+}
 
 function displayState(state) {
     return ["connecting", "connected", "reconnecting", state, "disconnected"][state];
@@ -66,26 +65,42 @@ function addNews(message) {
     $("#NewsFeedMessages").append("[" + new Date().toTimeString() + "] " + message + "<hr>");
 }
 
+function generateInvite() {
+    $.connection.lunchHub.server.fakeInvite();
+}
+
 function addInvite(request) {
     var log = $("#InviteMessages");
     log.append("From: " + request.From + "<br>");
     log.append("Subject: " + request.Subject + "<br>");
     log.append("Meeting Place: " + request.MeetingPlace + "<br>");
+    log.append("Time: " + request.DateTime + "<br>");
     log.append("Invites: " + "<br>");
+    var showResponseButtons = false;
+    var userName = $.connection.lunchHub.state.UserName;
     $.each(request.Invitees, function callback(index, item) {
-        log.append(item + "<br>");
+        log.append(item.Email + " - <span id='UserLunchRequest_" + item.Id + "'>" + item.Status + "</span><br>");
+        if(userName == item.Email && "Unanswered" == item.Status) {
+            showResponseButtons = true;
+        }
     });
-    log.append("<input type='button' id='accept" + request.Id + "' value='Accept' onClick='acceptInvite(" + request.Id + ")' />");
-    log.append("<input type='button' id='reject" + request.Id + "' value='Reject' onClick='rejectInvite(" + request.Id + ")' />");
+    if (showResponseButtons) {
+        log.append("<input type='button' id='accept" + request.Id + "' value='Accept' onClick='acceptInvite(" + request.Id + ")' />");
+        log.append("<input type='button' id='reject" + request.Id + "' value='Reject' onClick='rejectInvite(" + request.Id + ")' />");
+    }
     log.append("<hr>");
 }
 
 function acceptInvite(id) {
     $("#accept" + id).hide();
     $("#reject" + id).hide();
+
+    $.connection.lunchHub.server.fakeInviteResponse(id, 100);
 }
 
 function rejectInvite(id) {
     $("#accept" + id).hide();
     $("#reject" + id).hide();
+
+    $.connection.lunchHub.server.fakeInviteResponse(id, 200);
 }

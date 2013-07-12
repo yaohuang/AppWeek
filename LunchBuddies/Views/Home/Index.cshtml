@@ -4,7 +4,7 @@
 
 <div style="display: none" data-bind="visible: true">
     <div id="userSettings" data-bind="with: user">
-        Hello, <a href="#" data-bind="text: name, click: manage"></a>
+        Hello, <a href="#" id="userInfo" data-bind="text: name, click: manage"></a>
         &nbsp;<a href="#" data-bind="click: logOff">Log off</a>
     </div>
 
@@ -38,9 +38,12 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jquery.signalR")
     @Scripts.Render("~/bundles/knockout")
     @Scripts.Render("~/bundles/jqueryval")
 
     <script src="~/Scripts/sammy-0.7.4.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script src="~/Scripts/LunchHub.js"></script>
     @Scripts.Render("~/bundles/todo")
 }
