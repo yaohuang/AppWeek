@@ -11,7 +11,7 @@
     self.userName = ko.observable("").extend({
         required: {
             enabled: validationTriggered,
-            message: "The User name field is required."
+            message: "The Email field is required."
         }
     });
     self.password = ko.observable("").extend({

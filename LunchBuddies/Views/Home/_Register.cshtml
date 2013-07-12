@@ -1,22 +1,29 @@
-﻿<div class="todoList" id="registerPanel">
-    <form id="registerForm" data-bind="visible: !done()">
+﻿<div>
+    <form class="form-vertical" data-bind="visible: !done()">
         <fieldset>
-            <legend>Registration Form</legend>
-            <ul>
-                <li>
-                    <label for="email">Microsoft email account</label>
-                    <input type="text" name="email" data-bind="value: email, hasfocus: true" />
-                </li>
-            </ul>
-            <button type="submit" data-bind="click: registerClick, enable: !registering()">Sign up</button>
-            <span data-bind="visible: registeringVisible">Signing up...</span>
-            <span data-bind="visible: unknownErrorVisible">An unknown error occurred.</span>
-            <span data-bind="text: error"></span>
+            <legend>Register</legend>
+            <div class="control-group">
+                <label class="control-label" for="input01">Email</label>
+                <div class="controls">
+                    <input type="text" class="input-xlarge" id="input01" name="email" data-bind="value: email, hasfocus: true" />
+                    <p class="help-block">Microsoft email account only.</p>
+                    <div class="control-group error">
+                        <span class="help-inline" data-bind="visible: unknownErrorVisible">An unknown error occurred.</span>
+                        <span class="help-inline" data-bind="text: error"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="control-group success">
+                <span class="help-inline" data-bind="visible: registeringVisible">Signing up...</span>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" data-bind="click: registerClick, enable: !registering()">Sign up</button>
+            </div>
         </fieldset>
     </form>
     <p data-bind="visible: done">
         Request submitted. Please check your email for confirmation.
     </p>
 
-    <p>Already signed up? <a href="#" data-bind="click: loginClick">Log in</a></p>
+    <p>Already signed up? <a href="#login">Log in</a></p>
 </div>

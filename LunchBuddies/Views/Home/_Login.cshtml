@@ -1,30 +1,39 @@
-﻿<div class="todoList" id="loginPanel">
+﻿<div>
     <section id="localLoginPanel">
-        <form id="loginForm">
+        <form id="loginForm" class="form-vertical">
             <fieldset>
-                <legend>Log in Form</legend>
+                <legend>Log in</legend>
                 <ul class="validation-summary-errors" data-bind="foreach: errors">
                     <li data-bind="text: $data"></li>
                 </ul>
-                <ol>
-                    <li>
-                        <label for="UserName">User name</label>
-                        <input type="text" name="UserName" data-bind="value: userName, hasfocus: true" />
-                        <span data-bind="visible: userName.hasError, text: userName.errorMessage"></span>
-                    </li>
-                    <li>
-                        <label for="Password">Password</label>
-                        <input type="password" name="Password" data-bind="value: password" />
-                        <span data-bind="visible: password.hasError, text: password.errorMessage"></span>
-                    </li>
-                    <li>
-                        <input type="checkbox" name="RememberMe" data-bind="checked: rememberMe" />
-                        <label class="checkbox" for="RememberMe">Remember me?</label>
-                    </li>
-                </ol>
-                <button type="submit" data-bind="click: loginClick, enable: !loggingIn()">Log in</button>
+
+                <div class="control-group">
+                    <label class="control-label" for="input01">Email</label>
+                    <div class="controls">
+                        <input type="text" class="input-xlarge" id="input01" data-bind="value: userName, hasfocus: true" />
+                        <div class="control-group error">
+                            <span class="help-inline" data-bind="visible: userName.hasError, text: userName.errorMessage"></span>
+                        </div>
+                    </div>
+                    <label class="control-label" for="input02">Password</label>
+                    <div class="controls">
+                        <input type="password" class="input-xlarge" id="input02" data-bind="value: password" />
+                        <div class="control-group error">
+                            <span class="help-inline" data-bind="visible: password.hasError, text: password.errorMessage"></span>
+                        </div>
+                    </div>
+                    <div class="controls">
+                        <label class="checkbox">
+                            <input type="checkbox" id="optionsCheckbox" data-bind="checked: rememberMe">
+                            Remember me?
+                        </label>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" data-bind="click: loginClick, enable: !loggingIn()">Log in</button>
+                </div>
             </fieldset>
         </form>
     </section>
-    <p>First time here? <a href="#" data-bind="click: registerClick">Sign up</a></p>
+    <p>First time here? <a href="#register">Register</a></p>
 </div>

@@ -49,7 +49,7 @@
                 app.navigateToLogin();
             else {
                 self.loading(false);
-                app.errors.push("Error retrieving todo lists.");
+                //app.errors.push("Error retrieving todo lists.");
             }
         }); // load todoLists
 }

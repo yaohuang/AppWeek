@@ -166,7 +166,7 @@ namespace LunchBuddies.Controllers
             using (ModelsDbContext context = new ModelsDbContext())
             {
                 ((IObjectContextAdapter)context).ObjectContext.ContextOptions.ProxyCreationEnabled = false;
-                PendingRegistration pendingRegistration = context.PendingRegistrations.Include("User").FirstOrDefault(reg => reg.Id == tokenId);
+                PendingRegistration pendingRegistration = context.PendingRegistrations.Include("UserView").FirstOrDefault(reg => reg.Id == tokenId);
                 if (pendingRegistration == null)
                 {
                     return StatusCode(HttpStatusCode.BadRequest);

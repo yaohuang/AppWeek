@@ -1,43 +1,52 @@
-﻿<div class="todoList" id="registerPanel">
+﻿<div>
     <form id="registerForm">
         <fieldset>
             <legend>Confirm Registration</legend>
-            <img data-bind="attr: { src: pictureUrl}" />            
-            <ul>
-                <li>
-                    <label for="UserName">User name</label>
-                    <p data-bind="text: userName"></p>
-                </li>
-                <li>
-                    <label for="UserName">Email</label>
-                    <p data-bind="text: email"></p>
-                </li>
-                <li>
-                    <label for="UserName">Office</label>
-                    <p data-bind="text: office"></p>
-                </li>
-                <li>
-                    <label for="UserName">Telephone</label>
-                    <p data-bind="text: telephone"></p>
-                </li>
-                <li>
-                    <label for="UserName">Department</label>
-                    <p data-bind="text: department"></p>
-                </li>
-                <li>
-                    <label for="UserName">Title</label>
-                    <p data-bind="text: title"></p>
-                </li>
-                <li>
-                    <label for="Password">Password</label>
-                    <input type="password" name="Password" data-bind="value: password" />
-                </li>
-                <li>
-                    <label for="ConfirmPassword">Confirm password</label>
-                    <input type="password" name="ConfirmPassword" data-bind="value: confirmPassword" />
-                </li>
-            </ul>
-            <button type="submit" data-bind="click: registerClick, enable: !registering()">Sign up</button>
+            <img data-bind="attr: { src: pictureUrl}" class="img-polaroid" />
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>User Name</td>
+                        <td data-bind="text: userName"></td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td data-bind="text: email"></td>
+                    </tr>
+                    <tr>
+                        <td>Office</td>
+                        <td data-bind="text: office"></td>
+                    </tr>
+                    <tr>
+                        <td>Telephone</td>
+                        <td data-bind="text: telephone"></td>
+                    </tr>
+                    <tr>
+                        <td>Department</td>
+                        <td data-bind="text: department"></td>
+                    </tr>
+                    <tr>
+                        <td>Title</td>
+                        <td data-bind="text: title"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="control-group">
+                <label class="control-label" for="input01">Password</label>
+                <div class="controls">
+                    <input type="password" class="input-xlarge" id="input01" data-bind="value: password" />
+                </div>
+                <label class="control-label" for="input02">Confirm Password</label>
+                <div class="controls">
+                    <input type="password" class="input-xlarge" id="input02" data-bind="value: confirmPassword" />
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" data-bind="click: registerClick, enable: !registering()">Sign up</button>
+            </div>
+
             <span data-bind="visible: registeringVisible">Signing up...</span>
             <span data-bind="visible: unknownErrorVisible">An unknown error occurred.</span>
             <ul class="validation-summary-errors" data-bind="foreach: errors">
