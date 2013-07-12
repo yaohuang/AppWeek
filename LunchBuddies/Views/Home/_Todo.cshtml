@@ -31,24 +31,21 @@
 
         </div>
     </div>
-    <table>
-        <tr>
-            <td>
-                <div id="NewsFeedSection" style="width: 300px; height: 600px;">
-                    <h1>News Feed</h1>
-                    <div id="NewsFeedMessages" style="width: 300px; height: 600px; overflow: scroll">
-                    </div>
+    <div class="container-fluid">
+        <div class="row-fluid showgrid">
+            <div id="NewsFeedSection" class="span6">
+                <h1>News Feed</h1>
+                <div id="NewsFeedMessages">
                 </div>
-            </td>
-            <td>
-                <div id="InviteSection" style="width: 300px; height: 600px;">
-                    <h1>Invites</h1>
-                    <div id="InviteMessages" style="width: 300px; height: 600px; overflow: scroll">
-                    </div>
+            </div>
+            <div id="InviteSection" class="span6">
+                <h1>Invites</h1>
+                <div id="InviteMessages">
                 </div>
-            </td>
-        </tr>
-    </table>
+            </div>
+        </div>
+     </div>
+            
     <input type="button" value="Start" onclick="startSignalR()" />
     <input type="button" value="Generate Invite" onclick="generateInvite()" />
 </div>
