@@ -153,8 +153,11 @@ namespace LunchBuddies.Hubs
             request.MeetingPlace = "Here";
             request.Subject = "AppWeek Lunch";
             request.Users = new List<UserLunchRequest>();
-            request.Users.Add(new UserLunchRequest { User = _db.Users.Find(userName), LunchStatus = LunchStatus.Unanswered });
-            request.Users.Add(new UserLunchRequest { User = _db.Users.Find("ranadimi@microsoft.com"), LunchStatus = LunchStatus.Unanswered });
+            var users = _db.Users.Where(i => i.Email != request.Creator.Email);
+            foreach(var user in users)
+            { 
+                request.Users.Add(new UserLunchRequest { User = user, LunchStatus = LunchStatus.Unanswered });
+            }
 
             _db.LunchRequests.Add(request);
             try
