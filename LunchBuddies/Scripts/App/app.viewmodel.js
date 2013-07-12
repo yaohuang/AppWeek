@@ -83,16 +83,12 @@
     self.navigateToTodo = function () {
         self.errors.removeAll();
         self.chosenViewId(self.Views.Todo);
+        startSignalR();
     };
     self.navigateToLoggedOff = function () {
         self.errors.removeAll();
         dataModel.clearAccessToken();
         self.navigateToLogin();
-    };
-
-    self.navigateToTodo = function () {
-        self.errors.removeAll();
-        self.chosenViewId(self.Views.Todo);
     };
     self.navigateToRegister = function () {
         self.errors.removeAll();
