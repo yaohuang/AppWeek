@@ -307,6 +307,7 @@
     <Content Include="img\glyphicons-halflings-white.png" />
     <Content Include="img\glyphicons-halflings.png" />
     <Content Include="img\lunchBuddiesLogo.png" />
+    <Content Include="Scripts\App\ajaxPrefilters.js" />
     <Content Include="Scripts\App\app.bindings.js" />
     <Content Include="Scripts\App\app.datamodel.js" />
     <Content Include="Scripts\App\app.extenders.js" />
