@@ -85,8 +85,8 @@ function addInvite(request) {
         }
     });
     if (showResponseButtons) {
-        log.append("<input type='button' id='accept" + request.Id + "' value='Accept' onClick='acceptInvite(" + request.Id + ")' />");
-        log.append("<input type='button' id='reject" + request.Id + "' value='Reject' onClick='rejectInvite(" + request.Id + ")' />");
+        log.append("<input class='btn btn-success' type='button' id='accept" + request.Id + "' value='Accept' onClick='acceptInvite(" + request.Id + ")' />");
+        log.append("<input class='btn btn-danger' type='button' id='reject" + request.Id + "' value='Reject' onClick='rejectInvite(" + request.Id + ")' />");
     }
     log.append("<hr>");
 }
